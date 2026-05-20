@@ -25,3 +25,14 @@ class EventBus {
     }
   }
 }
+const bus = new EventBus();
+
+const unsubA = bus.subscribe("message", (data) => {
+  console.log("A:", data);
+});
+
+bus.subscribe("message", (data) => {
+  console.log("B:", data);
+});
+
+bus.emit("message", "Hello");
