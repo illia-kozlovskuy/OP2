@@ -21,3 +21,5 @@ function consumeWithTimeout(iterator, seconds) {
 
     }, 500);
 }
+const fib = fibonacciGenerator();
+consumeWithTimeout(fib, 5);
