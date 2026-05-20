@@ -62,7 +62,7 @@ export function memoize(fn, options = {}) {
     };
 }
 const slowAdd = (a, b) => {
-    console.log("calculating...");
+    console.log("calculating");
     return a + b;
 };
 
