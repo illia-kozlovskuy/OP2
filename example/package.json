@@ -1,0 +1,8 @@
+{
+  "name": "aps",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "lib": "file:../lib"
+  }
+}
