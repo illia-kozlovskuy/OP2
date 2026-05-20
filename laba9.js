@@ -1,12 +1,11 @@
-function createLogger(level = "INFO") {
-  return function logDecorator(fn) {
+function log(level) {
+  return function (fn) {
     return function (...args) {
       const time = new Date().toISOString();
 
-      console.log(`[${time}] [${level}] args:`, args);
-
       const result = fn(...args);
 
+      console.log(`[${time}] [${level}] args:`, args);
       console.log(`[${time}] [${level}] result:`, result);
 
       return result;
