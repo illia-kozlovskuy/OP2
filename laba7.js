@@ -44,3 +44,12 @@ bus.emit("message", "Before unsubscribe");
 unsubA();
 
 bus.emit("message", "After unsubscribe");
+bus.subscribe("error", (err) => {
+  console.log("ERROR:", err.message);
+});
+
+bus.subscribe("message", () => {
+  throw new Error("Test error");
+});
+
+bus.emit("message", "Trigger");
