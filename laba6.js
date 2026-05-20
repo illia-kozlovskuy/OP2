@@ -6,9 +6,12 @@ async function* largeDataGenerator(size = 10) {
 }
 async function processLargeData(stream, processor) {
   const result = [];
-
-  for await (const item of stream) {
-    result.push(await processor(item));
+try {
+    for await (const item of stream) {
+      result.push(await processor(item));
+    }
+  } catch (err) {
+    throw err;
   }
 
   return result;
