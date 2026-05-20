@@ -55,7 +55,7 @@ class AuthProxy {
 
     return this.client.request({
       ...req,
-      headers
+      headers,
     });
   }
 }
@@ -82,7 +82,15 @@ class GitHubService {
   getUser(username) {
     return this.httpClient.request({
       url: `https://api.github.com/users/${username}`,
-      method: "GET"
+      method: "GET",
     });
   }
 }
+const baseClient = new BaseHttpClient();
+const strategy = new JwtStrategy(() => "FAKE_TOKEN");
+const authClient = new AuthProxy(baseClient, strategy);
+const client = new LoggingProxy(authClient);
+const service = new GitHubService(client);
+service.getUser("octocat").then((res) => {
+  console.log("User data:", res.data);
+});
