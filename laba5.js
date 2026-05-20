@@ -29,3 +29,27 @@ function mapCallback(array, fn, cb) {
 
     next();
 }
+function mapPromise(array, fn) {
+    return new Promise((resolve, reject) => {
+        let i = 0;
+        const result = [];
+
+        function next() {
+            if (i >= array.length) {
+                return resolve(result);
+            }
+
+            setTimeout(() => {
+                try {
+                    result.push(fn(array[i], i));
+                    i++;
+                    next();
+                } catch (err) {
+                    reject(err);
+                }
+            }, 100);
+        }
+
+        next();
+    });
+}
