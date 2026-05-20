@@ -4,16 +4,16 @@ class EventBus {
   }
 
   subscribe(event, listener) {
-  if (!this.events[event]) {
-    this.events[event] = [];
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+
+    this.events[event].push(listener);
+
+    return () => {
+      this.events[event] = this.events[event].filter((l) => l !== listener);
+    };
   }
-
-  this.events[event].push(listener);
-
-  return () => {
-    this.events[event] = this.events[event].filter(l => l !== listener);
-  };
-}
 
   emit(event, data) {
     const listeners = this.events[event];
@@ -21,7 +21,11 @@ class EventBus {
     if (!listeners) return;
 
     for (const listener of listeners) {
-      listener(data);
+      try {
+        listener(data);
+      } catch (err) {
+        this.emit("error", err);
+      }
     }
   }
 }
@@ -35,4 +39,8 @@ bus.subscribe("message", (data) => {
   console.log("B:", data);
 });
 
-bus.emit("message", "Hello");
+bus.emit("message", "Before unsubscribe");
+
+unsubA();
+
+bus.emit("message", "After unsubscribe");
