@@ -59,3 +59,18 @@ class AuthProxy {
     });
   }
 }
+class LoggingProxy {
+  constructor(client) {
+    this.client = client;
+  }
+
+  async request(req) {
+    console.log("[REQUEST]", req.url);
+
+    const res = await this.client.request(req);
+
+    console.log("[RESPONSE]", res.status);
+
+    return res;
+  }
+}
