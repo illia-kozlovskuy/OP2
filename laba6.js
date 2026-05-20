@@ -16,3 +16,14 @@ try {
 
   return result;
 }
+async function example() {
+  const stream = largeDataGenerator(10);
+
+  const result = await processLargeData(stream, async (x) => {
+    return x * 2;
+  });
+
+  console.log("RESULT:", result);
+}
+
+example();
