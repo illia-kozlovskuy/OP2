@@ -5,13 +5,15 @@ export function memoize(fn) {
     const key = JSON.stringify(args);
 
     if (cache.has(key)) {
-      return cache.get(key);
-    }
+    const item = cache.get(key);
 
-    if (cache.has(key)) {
-      return cache.get(key).value;
-    }
+    item.lastAccess = Date.now();
 
+    cache.delete(key);
+    cache.set(key, item);
+
+    return item.value;
+}
     const result = fn.apply(this, args);
 
     cache.set(key, {
