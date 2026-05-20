@@ -13,7 +13,11 @@ export function memoize(fn) {
       cache.delete(key);
       cache.set(key, item);
 
-      return item.value;
+      if (isExpired(item, ttl)) {
+        cache.delete(key);
+      } else {
+        return item.value;
+      }
     }
     const result = fn.apply(this, args);
 
