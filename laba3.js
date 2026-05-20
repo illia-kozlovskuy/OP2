@@ -61,3 +61,13 @@ export function memoize(fn, options = {}) {
         return result;
     };
 }
+const slowAdd = (a, b) => {
+    console.log("calculating...");
+    return a + b;
+};
+
+const memoAdd = memoize(slowAdd);
+
+console.log("1st call:", memoAdd(2, 3));
+console.log("2nd call:", memoAdd(2, 3));
+console.log("3rd call:", memoAdd(2, 3));
