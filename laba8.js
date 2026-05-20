@@ -32,3 +32,13 @@ class ApiKeyStrategy {
     return headers;
   }
 }
+class OAuthStrategy {
+  constructor(getToken) {
+    this.getToken = getToken;
+  }
+
+  apply(headers) {
+    headers["Authorization"] = `OAuth ${this.getToken()}`;
+    return headers;
+  }
+}
