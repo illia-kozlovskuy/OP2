@@ -22,3 +22,13 @@ class JwtStrategy {
     return headers;
   }
 }
+class ApiKeyStrategy {
+  constructor(getKey) {
+    this.getKey = getKey;
+  }
+
+  apply(headers) {
+    headers["x-api-key"] = this.getKey();
+    return headers;
+  }
+}
