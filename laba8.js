@@ -42,3 +42,20 @@ class OAuthStrategy {
     return headers;
   }
 }
+class AuthProxy {
+  constructor(client, strategy) {
+    this.client = client;
+    this.strategy = strategy;
+  }
+
+  async request(req) {
+    let headers = req.headers || {};
+
+    headers = this.strategy.apply(headers);
+
+    return this.client.request({
+      ...req,
+      headers
+    });
+  }
+}
