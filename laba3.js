@@ -35,3 +35,6 @@ if (cache.size > maxSize) {
     const firstKey = cache.keys().next().value;
     cache.delete(firstKey);
 }
+if (customEvict) {
+    customEvict(cache);
+}
