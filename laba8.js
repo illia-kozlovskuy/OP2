@@ -12,3 +12,13 @@ class BaseHttpClient {
     };
   }
 }
+class JwtStrategy {
+  constructor(getToken) {
+    this.getToken = getToken;
+  }
+
+  apply(headers) {
+    headers["Authorization"] = `Bearer ${this.getToken()}`;
+    return headers;
+  }
+}
