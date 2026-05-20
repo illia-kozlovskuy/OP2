@@ -31,3 +31,7 @@ export function memoize(fn) {
     return result;
   };
 }
+if (cache.size > maxSize) {
+    const firstKey = cache.keys().next().value;
+    cache.delete(firstKey);
+}
